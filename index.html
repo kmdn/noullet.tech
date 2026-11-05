@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    // Runs before first paint: theme + language (avoids a flash of the wrong theme/language)
+    (function () {
+      var d = document.documentElement, langs = ['en', 'de', 'fr', 'fi', 'lu'], lang = null, t = null;
+      d.classList.add('js');
+      try { t = localStorage.getItem('kn-theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      d.setAttribute('data-theme', t);
+      var q = new URLSearchParams(location.search).get('lang');
+      if (q && langs.indexOf(q) > -1) lang = q;
+      if (!lang) { try { lang = localStorage.getItem('kn-lang'); } catch (e) {} }
+      if (!lang || langs.indexOf(lang) < 0) {
+        lang = 'en';
+        var nav = navigator.languages || [navigator.language || 'en'];
+        for (var i = 0; i < nav.length; i++) {
+          var c = String(nav[i]).toLowerCase().split('-')[0];
+          if (c === 'lb' || c === 'ltz') c = 'lu'; // ISO code lb, shown as LU
+          if (langs.indexOf(c) > -1) { lang = c; break; }
+        }
+      }
+      d.setAttribute('data-lang', lang);
+      if (lang !== 'en') {
+        d.classList.add('i18n-pending');
+        setTimeout(function () { d.classList.remove('i18n-pending'); }, 1500);
+      }
+    })();
+  </script>
+
+  <title data-i18n="meta.title">Kristian Noullet | AI Researcher &amp; Project Lead | NLP, LLMs, Semantic Web</title>
+  <meta name="description" data-i18n-attr="content:meta.description" content="Kristian Noullet, computer scientist and AI researcher (KIT) specialising in NLP, large language models and the Semantic Web, with seven years of applied AI projects with partners such as BMW, DATEV, Holtzbrinck and Nokia.">
+  <meta name="author" content="Kristian Noullet">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#2b59c3">
+  <link rel="canonical" href="https://noullet.tech/">
+  <link rel="alternate" hreflang="en" href="https://noullet.tech/?lang=en">
+  <link rel="alternate" hreflang="de" href="https://noullet.tech/?lang=de">
+  <link rel="alternate" hreflang="fr" href="https://noullet.tech/?lang=fr">
+  <link rel="alternate" hreflang="fi" href="https://noullet.tech/?lang=fi">
+  <link rel="alternate" hreflang="lb" href="https://noullet.tech/?lang=lu">
+  <link rel="alternate" hreflang="x-default" href="https://noullet.tech/">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Kristian Noullet | AI Researcher &amp; Project Lead">
+  <meta property="og:description" content="NLP · Large Language Models · Semantic Web · AI project leadership. Doctorate at KIT, seven years of applied AI projects with BMW, DATEV, Holtzbrinck and Nokia.">
+  <meta property="og:url" content="https://noullet.tech/">
+  <meta property="profile:first_name" content="Kristian">
+  <meta property="profile:last_name" content="Noullet">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Kristian Noullet",
+    "url": "https://noullet.tech/",
+    "jobTitle": "Computer Scientist & AI Researcher",
+    "description": "Computer scientist and AI researcher specialising in NLP, large language models, knowledge graphs and the Semantic Web.",
+    "knowsAbout": ["Natural Language Processing", "Large Language Models", "Entity Linking", "Knowledge Graphs", "Semantic Web", "Machine Learning", "AI Project Management"],
+    "knowsLanguage": ["en", "de", "fr", "fi", "lb"],
+    "nationality": [{"@type": "Country", "name": "Luxembourg"}, {"@type": "Country", "name": "Finland"}],
+    "alumniOf": [
+      {"@type": "CollegeOrUniversity", "name": "Karlsruhe Institute of Technology (KIT)"},
+      {"@type": "CollegeOrUniversity", "name": "University of Freiburg"},
+      {"@type": "CollegeOrUniversity", "name": "University of Luxembourg"}
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/kristian-noullet",
+      "https://github.com/kmdn",
+      "https://orcid.org/0000-0002-4916-9443"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to content</a>
+
+  <!-- ============================== Header ============================== -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Kristian Noullet">
+        <span class="brand-mark" aria-hidden="true">KN</span>
+        <span class="brand-name">Kristian Noullet</span>
+      </a>
+
+      <nav class="site-nav" id="site-nav" data-i18n-attr="aria-label:a11y.nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="#about" data-i18n="nav.about">About</a></li>
+          <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+          <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+          <li><a href="#research" data-i18n="nav.research">Research</a></li>
+          <li><a href="#education" data-i18n="nav.education">Education</a></li>
+          <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+          <li><a href="#personal" data-i18n="nav.personal">Beyond work</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-tools">
+        <div class="lang-switch" role="group" data-i18n-attr="aria-label:a11y.lang" aria-label="Language">
+          <button type="button" data-lang="en" lang="en" title="English" aria-label="English"><svg class="lang-flag" viewBox="0 0 18 12" aria-hidden="true"><rect width="18" height="12" fill="#012169"/><path d="M0 0l18 12M18 0L0 12" stroke="#fff" stroke-width="2.6"/><path d="M0 0l18 12M18 0L0 12" stroke="#c8102e" stroke-width="1"/><path d="M9 0v12M0 6h18" stroke="#fff" stroke-width="4"/><path d="M9 0v12M0 6h18" stroke="#c8102e" stroke-width="2"/></svg>EN</button>
+          <button type="button" data-lang="de" lang="de" title="Deutsch" aria-label="Deutsch"><svg class="lang-flag" viewBox="0 0 18 12" aria-hidden="true"><rect width="18" height="4" fill="#000"/><rect y="4" width="18" height="4" fill="#d00"/><rect y="8" width="18" height="4" fill="#ffce00"/></svg>DE</button>
+          <button type="button" data-lang="fr" lang="fr" title="Français" aria-label="Français"><svg class="lang-flag" viewBox="0 0 18 12" aria-hidden="true"><rect width="6" height="12" fill="#002395"/><rect x="6" width="6" height="12" fill="#fff"/><rect x="12" width="6" height="12" fill="#ed2939"/></svg>FR</button>
+          <button type="button" data-lang="fi" lang="fi" title="Suomi" aria-label="Suomi"><svg class="lang-flag" viewBox="0 0 18 12" aria-hidden="true"><rect width="18" height="12" fill="#fff"/><path d="M5 0v12M0 4h18" stroke="#003580" stroke-width="2"/></svg>FI</button>
+          <button type="button" data-lang="lu" lang="lb" title="Lëtzebuergesch" aria-label="Lëtzebuergesch"><svg class="lang-flag" viewBox="0 0 18 12" aria-hidden="true"><rect width="18" height="4" fill="#ed2939"/><rect y="4" width="18" height="4" fill="#fff"/><rect y="8" width="18" height="4" fill="#00a1de"/></svg>LU</button>
+        </div>
+        <button type="button" class="icon-btn theme-toggle" data-i18n-attr="aria-label:a11y.theme;title:a11y.theme" aria-label="Switch between light and dark mode" title="Switch between light and dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M1.5 12h3M19.5 12h3M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
+        </button>
+        <button type="button" class="icon-btn nav-toggle" aria-controls="site-nav" aria-expanded="false" data-i18n-attr="aria-label:a11y.menu" aria-label="Menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============================== Hero ============================== -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <p class="status-pill"><span class="pulse" aria-hidden="true"></span><span data-i18n="hero.status">Open to new opportunities</span></p>
+          <p class="eyebrow" data-i18n="hero.role">Computer Scientist &amp; AI Researcher</p>
+          <h1>Kristian Noullet <span class="suffix">M.Sc.</span></h1>
+          <p class="hero-motto" data-i18n="hero.motto">Tech enthusiast. AI realist.</p>
+          <p class="hero-focus" data-i18n="hero.focus">NLP · Large Language Models · Semantic Web · AI Project Leadership</p>
+          <p class="hero-intro" data-i18n="hero.intro">I build AI systems that turn unstructured text into connected knowledge, and I lead the projects that bring them into real organisations. Doctorate at KIT (defense on 10&nbsp;December&nbsp;2026), seven years of applied AI projects with partners such as BMW, DATEV, Holtzbrinck and Nokia.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact" data-i18n="hero.cta.contact">Get in touch</a>
+            <a class="btn btn-ghost" href="#projects" data-i18n="hero.cta.projects">See my projects</a>
+          </div>
+          <ul class="social">
+            <li><a href="https://www.linkedin.com/in/kristian-noullet" rel="me noopener" target="_blank" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.63-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a></li>
+            <li><a href="https://github.com/kmdn" rel="me noopener" target="_blank" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></li>
+            <li><a href="https://orcid.org/0000-0002-4916-9443" rel="me noopener" target="_blank" aria-label="ORCID" title="ORCID"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zM8.1 17.6H6.4V7.4h1.7v10.2zM7.25 6.1a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2zM10.2 7.4h4.1c3.9 0 5.6 2.8 5.6 5.1 0 2.5-2 5.1-5.6 5.1h-4.1V7.4zm1.7 1.5v7.2h2.3c3.2 0 3.9-2.4 3.9-3.6 0-2-1.3-3.6-4-3.6h-2.2z"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="avatar">
+            <span class="avatar-initials">KN</span>
+            <!-- To show a photo instead of the initials: add assets/img/photo.jpg (square, ~600x600) and uncomment:
+            <img src="assets/img/photo.jpg" alt="" width="600" height="600">
+            -->
+          </div>
+          <!-- Rings rotate (each carries a dot); labels sit still on their rings so they stay readable,
+               and glow while any ring's dot passes under them (detected in main.js).
+               Positions were optimised so no label collides in any language at any desktop size.
+               on-N = which ring the label sits on, --deg = angle from the top, clockwise. -->
+          <div class="orbit orbit-1"></div>
+          <div class="orbit orbit-2"></div>
+          <div class="orbit orbit-3"></div>
+          <div class="nodes">
+            <span class="node on-1 node-quality" style="--deg: 13" data-i18n="node.lead">Project lead</span>
+            <span class="node on-1" style="--deg: 193">Entity linking</span>
+            <span class="node on-2" style="--deg: 56">NER</span>
+            <span class="node on-2" style="--deg: 301">LLMs</span>
+            <span class="node on-2" style="--deg: 330">NLP</span>
+            <span class="node on-3" style="--deg: 0">Semantic Web</span>
+            <span class="node on-3 node-personal" style="--deg: 91" data-i18n="node.maker">Maker</span>
+            <span class="node on-3 node-quality" style="--deg: 130" data-i18n="node.oss">Open source</span>
+            <span class="node on-3" style="--deg: 180" data-i18n="skill.kg">Knowledge graphs</span>
+            <span class="node on-3 node-quality" style="--deg: 242" data-i18n="node.teaching">Teaching</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <ul class="stats">
+          <li><strong>5</strong><span data-i18n="stats.projects">AI projects with industry partners</span></li>
+          <li><strong>3</strong><span data-i18n="stats.lead">of them as project lead</span></li>
+          <li><strong data-i18n="stats.budget.num">€215k+</strong><span data-i18n="stats.budget">project budget managed</span></li>
+          <li><strong data-i18n="stats.workers.num">up to 25</strong><span data-i18n="stats.workers">student workers per semester</span></li>
+          <li><strong>7</strong><span data-i18n="stats.pubs">publications, incl. IJCNLP-AACL &amp; K-CAP</span></li>
+          <li><strong>5</strong><span data-i18n="stats.langs">languages at native level</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================== About ============================== -->
+    <section class="section" id="about">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker" data-i18n="about.kicker">About me</p>
+          <h2 data-i18n="about.title">From research to practice</h2>
+        </header>
+        <div class="about-grid">
+          <div class="prose reveal">
+            <p data-i18n="about.p1">I'm a computer scientist specialising in natural language processing, large language models and the Semantic Web. During my doctorate at the Karlsruhe Institute of Technology (KIT), I developed modular, knowledge-graph-agnostic methods for entity linking (recognising which real-world thing a word in a text refers to) and released them as open-source frameworks.</p>
+            <p data-i18n="about.p2">Alongside research, I spent about seven years leading and delivering applied AI projects with industry partners: from LLM-based policy compliance checking at DATEV to a network-planning tool in use at atesio. Before that, I worked as a full-stack developer at ING Luxembourg, where my tools replaced commercial software costing EUR&nbsp;150k per year in licences.</p>
+            <p data-i18n="about.p3">I enjoy bringing technology, business units and management together. For me, a project is only finished when its results are actually used. I'm now looking for a role where I can lead AI projects like that.</p>
+          </div>
+          <aside class="card glance reveal">
+            <h3 data-i18n="glance.title">At a glance</h3>
+            <dl>
+              <dt data-i18n="glance.focus.k">Focus</dt>
+              <dd data-i18n="glance.focus.v">NLP, LLMs, knowledge graphs, AI project leadership</dd>
+              <dt data-i18n="glance.degree.k">Doctorate</dt>
+              <dd data-i18n="glance.degree.v">Dr.-Ing. at KIT, defense on 10&nbsp;Dec&nbsp;2026</dd>
+              <dt data-i18n="glance.nat.k">Citizenship</dt>
+              <dd data-i18n="glance.nat.v">Luxembourgish &amp; Finnish (EU citizen, no work permit needed)</dd>
+              <dt data-i18n="glance.langs.k">Languages</dt>
+              <dd data-i18n="glance.langs.v">English, German, French, Luxembourgish, Finnish</dd>
+              <dt data-i18n="glance.looking.k">Looking for</dt>
+              <dd data-i18n="glance.looking.v">AI/NLP engineering, applied research and AI project leadership roles</dd>
+            </dl>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== Experience ============================== -->
+    <section class="section section-alt" id="experience">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker" data-i18n="exp.kicker">Career</p>
+          <h2 data-i18n="exp.title">Professional experience</h2>
+        </header>
+
+        <ol class="timeline">
+          <li class="tl-item reveal">
+            <div class="tl-meta"><span class="tl-date">09/2019 - 08/2026</span><span class="tl-place">Karlsruhe</span></div>
+            <div class="tl-body card">
+              <h3 data-i18n="exp.kit.role">Research Associate (Doctoral Researcher)</h3>
+              <p class="tl-org" data-i18n="exp.kit.org">Karlsruhe Institute of Technology (KIT), Institute AIFB, Web Science group</p>
+              <ul class="bullets">
+                <li data-i18n="exp.kit.b1">Delivered five AI projects with industry and consortium partners (incl. BMW, DATEV, Holtzbrinck, Nokia), three of them as project lead with team and budget responsibility totalling over EUR&nbsp;215k.</li>
+                <li data-i18n="exp.kit.b2">Developed methods that automatically link terms in text to the matching entries in knowledge bases (entity linking with transformers and LLMs). They work with any data source, from corporate wikis to Wikidata, and were released as the open-source frameworks CoLiT and Agnus LLM and published at international conferences such as IJCNLP-AACL.</li>
+                <li data-i18n="exp.kit.b3"><strong>Agnus LLM</strong> beats the state of the art on 5 benchmarks by 3.7&nbsp;% on average, with language models 100 times smaller than the weaker competing LLMs. It prevents hallucinations, removes 15.2&nbsp;% F1 result variability and quantifies benchmark memorisation via synthetically generated test data.</li>
+                <li data-i18n="exp.kit.b4">Led up to 25 student workers per semester, including tutors, and ran the tutorial programme for up to 900 students per semester (Foundations of Computer Science I/II); designed and taught my own Master's course on knowledge discovery, graph neural networks and language models; supervised 7 final theses.</li>
+                <li data-i18n="exp.kit.b5">Co-authored grant proposals, e.g. the renewal proposal for the DFG research unit FOR&nbsp;5339 (multi-year funding for 2-3 doctoral researchers); ran, maintained and migrated the AIFB institute portal (approx. 30,000 pages; Semantic MediaWiki, Docker, Squid) as principal developer and administrator.</li>
+              </ul>
+              <ul class="tags"><li>Python</li><li>PyTorch</li><li>Hugging Face</li><li>LLMs</li><li>Ollama</li><li>Docker</li><li>Semantic MediaWiki</li></ul>
+            </div>
+          </li>
+
+          <li class="tl-item reveal">
+            <div class="tl-meta"><span class="tl-date">02/2018 - 08/2019</span><span class="tl-place">Freiburg</span></div>
+            <div class="tl-body card">
+              <h3 data-i18n="exp.ra.role">Research Assistant (part-time)</h3>
+              <p class="tl-org" data-i18n="exp.ra.org">University of Freiburg, Chair of Databases and Information Systems (Prof. Dr. Georg Lausen)</p>
+              <ul class="bullets">
+                <li data-i18n="exp.ra.b1">Research on NLP, relation extraction, the Semantic Web and machine learning; built proofs of concept.</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="tl-item reveal">
+            <div class="tl-meta"><span class="tl-date">02/2018 - 08/2019</span><span class="tl-place">Freiburg</span></div>
+            <div class="tl-body card">
+              <h3 data-i18n="exp.sys.role">Systems Administrator (part-time)</h3>
+              <p class="tl-org" data-i18n="exp.sys.org">University College Freiburg, University of Freiburg</p>
+              <ul class="bullets">
+                <li data-i18n="exp.sys.b1">Ran IT operations for more than 50 employees in a team of two: administered a heterogeneous Windows, Linux and macOS landscape.</li>
+                <li data-i18n="exp.sys.b2">Managed users and access rights via Active Directory and Group Policies; set up accounts and workstations for new employees.</li>
+                <li data-i18n="exp.sys.b3">Operated network infrastructure, DHCP and firewalls; automated recurring administration tasks with PowerShell scripts.</li>
+              </ul>
+              <ul class="tags"><li>Windows</li><li>Linux</li><li>macOS</li><li>Active Directory</li><li>PowerShell</li></ul>
+            </div>
+          </li>
+
+          <li class="tl-item reveal">
+            <div class="tl-meta"><span class="tl-date">02/2014 - 08/2015</span><span class="tl-place" data-i18n="place.lux">Luxembourg</span></div>
+            <div class="tl-body card">
+              <h3 data-i18n="exp.ing.role">Full-Stack Software Developer</h3>
+              <p class="tl-org" data-i18n="exp.ing.org">ING Luxembourg S.A. (intern until 08/2014)</p>
+              <ul class="bullets">
+                <li data-i18n="exp.ing.b1">Built a software toolkit for the IT department (approx. 120 staff) with Java, Spring, SQL and JavaScript, incl. a request management system and a development environment for COBOL: replaced commercial software with licence costs of EUR&nbsp;150k per year, with more functionality.</li>
+                <li data-i18n="exp.ing.b2">Fully automated mainframe workflows (TN3270 connectivity to IBM mainframes, reverse engineering of undocumented mainframe behaviour): screen sequences that took up to an hour of manual clicking now run without user input, saving several hundred developer hours per month.</li>
+              </ul>
+              <ul class="tags"><li>Java</li><li>Spring</li><li>SQL</li><li>JavaScript</li><li>IBM Mainframe</li></ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================== Projects ============================== -->
+    <section class="section" id="projects">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker" data-i18n="proj.kicker">Selected work</p>
+          <h2 data-i18n="proj.title">Projects</h2>
+          <p class="section-lead" data-i18n="proj.lead">Applied AI projects with industry and consortium partners: goal, approach and result.</p>
+        </header>
+
+        <div class="project-grid">
+          <article class="card project reveal">
+            <p class="project-date">01/2025 - 08/2026</p>
+            <h3 data-i18n="proj.llm.title">LLM-GALP: LLMs for policy management and AI governance</h3>
+            <p class="project-org" data-i18n="proj.llm.org">Software Campus project with DATEV eG</p>
+            <ul class="facts"><li data-i18n="fact.lead">Project lead</li><li data-i18n="proj.llm.f2">Budget EUR&nbsp;115k</li><li>EU AI Act</li></ul>
+            <dl class="gar">
+              <dt data-i18n="label.goal">Goal</dt>
+              <dd data-i18n="proj.llm.goal">Use large language models to analyse and manage internal policies and AI governance requirements (EU AI Act) automatically.</dd>
+              <dt data-i18n="label.approach">Approach</dt>
+              <dd data-i18n="proj.llm.approach">Took over the running project after the original project lead left and brought it to completion; built LLM-based policy compliance checking with locally hosted open-weight LLMs (incl. Llama) for GDPR compliance, using Python, Docker and Ollama.</dd>
+              <dt data-i18n="label.result">Result</dt>
+              <dd data-i18n="proj.llm.result">Prototype in use at DATEV: approx. 5,000 policies analysed automatically, saving considerable time; follow-up project for 2027 in preparation.</dd>
+            </dl>
+          </article>
+
+          <article class="card project reveal">
+            <p class="project-date">06/2022 - 06/2024</p>
+            <h3 data-i18n="proj.fwm.title">FWM (Find What Matters): detecting key content</h3>
+            <p class="project-org" data-i18n="proj.fwm.org">Software Campus project with Holtzbrinck Publishing Group</p>
+            <ul class="facts"><li data-i18n="fact.lead">Project lead</li><li data-i18n="proj.fwm.f2">Budget EUR&nbsp;100k</li><li data-i18n="proj.fwm.f3">Team of 4 assistants</li></ul>
+            <dl class="gar">
+              <dt data-i18n="label.goal">Goal</dt>
+              <dd data-i18n="proj.fwm.goal">Make scientific publications faster to grasp by detecting their key content automatically.</dd>
+              <dt data-i18n="label.approach">Approach</dt>
+              <dd data-i18n="proj.fwm.approach">Transformer-based methods (encoder and decoder models) combining several sources of information (summary, keywords, context, method and results along the IMRaD structure); technical lead of 4 student research assistants.</dd>
+              <dt data-i18n="label.result">Result</dt>
+              <dd data-i18n="proj.fwm.result">Piloted with Holtzbrinck on scientific publications; foundation of the frameworks CoLiT and Agnus LLM and of the follow-up work ReCoLTe (in preparation).</dd>
+            </dl>
+          </article>
+
+          <article class="card project reveal">
+            <p class="project-date">2020 - 2024</p>
+            <h3 data-i18n="proj.kiglis.title">KIGLIS: AI for optimising fibre-optic networks in smart cities</h3>
+            <p class="project-org" data-i18n="proj.kiglis.org">Joint project with Nokia, VPI Photonics, Telemaxx, KIT-IPQ and atesio</p>
+            <ul class="facts"><li data-i18n="proj.kiglis.f1">Work package lead</li><li data-i18n="proj.kiglis.f2">Consortium of 15 people</li><li data-i18n="proj.kiglis.f3">Multi-million budget</li></ul>
+            <dl class="gar">
+              <dt data-i18n="label.goal">Goal</dt>
+              <dd data-i18n="proj.kiglis.goal">Use AI to expand fibre-optic networks in smart cities more intelligently and to steer traffic better.</dd>
+              <dt data-i18n="label.approach">Approach</dt>
+              <dd data-i18n="proj.kiglis.approach">Developed ML methods on infrastructure and traffic data; passed on AI know-how to the industry partners in regular workshops.</dd>
+              <dt data-i18n="label.result">Result</dt>
+              <dd data-i18n="proj.kiglis.result">Tool built for the partner atesio and in use there: improved the location accuracy of infrastructure maps from hundreds of metres to a few metres or even centimetres, which substantially cuts excavation costs for repairs and network expansion.</dd>
+            </dl>
+          </article>
+
+          <article class="card project reveal">
+            <p class="project-date">2019 - 2022</p>
+            <h3 data-i18n="proj.hub.title">HUBRAUM: making internal corporate knowledge usable with NLP and ML</h3>
+            <p class="project-org" data-i18n="proj.hub.org">Research project with the BMW Group</p>
+            <ul class="facts"><li data-i18n="proj.hub.f1">Team lead (3 people)</li></ul>
+            <dl class="gar">
+              <dt data-i18n="label.goal">Goal</dt>
+              <dd data-i18n="proj.hub.goal">Make internal corporate knowledge easier to find and use.</dd>
+              <dt data-i18n="label.approach">Approach</dt>
+              <dd data-i18n="proj.hub.approach">Developed methods that automatically interlink internal knowledge sources, independent of the knowledge base in use.</dd>
+              <dt data-i18n="label.result">Result</dt>
+              <dd data-i18n="proj.hub.result">Prototype for an innovation unit of the BMW Group that semantically links documents and projects into a connected overview of ongoing activities for researchers and management.</dd>
+            </dl>
+          </article>
+
+          <article class="card project project-compact reveal">
+            <p class="project-date">2020 - 2022</p>
+            <h3 data-i18n="proj.iidi.title">IIDI: intelligent information services for domain-specific web portals</h3>
+            <p class="project-org" data-i18n="proj.iidi.org">Joint project with TecIntelli</p>
+            <p data-i18n="proj.iidi.desc">Developed ML methods for intelligent systems and knowledge exploration in specialised domains.</p>
+          </article>
+
+          <article class="card project project-compact reveal">
+            <p class="project-date">2019 - 2026</p>
+            <h3 data-i18n="proj.oss.title">Open-source frameworks CoLiT &amp; Agnus LLM</h3>
+            <p class="project-org"><a href="https://github.com/kmdn" target="_blank" rel="noopener">github.com/kmdn</a></p>
+            <p data-i18n="proj.oss.desc"><strong>CoLiT</strong> combines entity linking systems and components into custom pipelines; <strong>Agnus LLM</strong> performs entity disambiguation with interchangeable open-weight LLMs.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== Research & teaching ============================== -->
+    <section class="section section-alt" id="research">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker" data-i18n="res.kicker">Research &amp; teaching</p>
+          <h2 data-i18n="res.title">Research</h2>
+        </header>
+
+        <div class="card thesis reveal">
+          <p class="kicker" data-i18n="res.thesis.label">Doctoral thesis</p>
+          <h3 class="thesis-title" lang="en">Modular and Adaptive Named Entity Linking</h3>
+          <p class="thesis-meta" data-i18n="res.thesis.meta">Karlsruhe Institute of Technology · submitted 07/2026 · defense on 10&nbsp;Dec&nbsp;2026 · supervisor: Prof. Dr. York Sure-Vetter · second reviewer: Dr.-Ing. Tobias Käfer</p>
+          <p data-i18n="res.thesis.desc">Entity linking connects mentions in text (such as "Paris", "Jaguar" or "Mercury") to the right entry in a knowledge base. My thesis makes this process <strong>modular</strong> (systems and components can be combined and swapped), <strong>knowledge-graph-agnostic</strong> (it works with Wikidata, DBpedia or a company's own knowledge base) and <strong>adaptive</strong> (robust LLM-based disambiguation that avoids hallucinations).</p>
+        </div>
+
+        <div class="research-grid">
+          <div class="reveal">
+            <h3 class="sub-head" data-i18n="res.pubs">Publications</h3>
+            <ol class="pubs" lang="en">
+              <li><span class="pub-year">2025</span><div><p class="pub-title">Agnus LLM: Robust and Flexible Entity Disambiguation with Decoder-only Language Models</p><p class="pub-authors"><strong>K. Noullet</strong>, A. Ourgani, N. T. Lakner, L. Kinder, T. Käfer</p><p class="pub-venue">Proceedings of IJCNLP-AACL 2025, pp. 3266-3284, ACL</p></div></li>
+              <li><span class="pub-year">2025</span><div><p class="pub-title">Linking with Bias: Domain-Specific Behaviour in Entity Linking Systems</p><p class="pub-authors"><strong>K. Noullet</strong>, A. Ourgani, N. Lakner, T. Käfer</p><p class="pub-venue">Proceedings of SEMANTiCS 2025, Studies on the Semantic Web, IOS Press</p></div></li>
+              <li><span class="pub-year">2023</span><div><p class="pub-title">A Full-Fledged Framework for Combining Entity Linking Systems and Components</p><p class="pub-authors"><strong>K. Noullet</strong>, A. Ourgani, M. Färber</p><p class="pub-venue">Proceedings of the 12th Knowledge Capture Conference (K-CAP), pp. 148-156, ACM</p></div></li>
+              <li><span class="pub-year">2022</span><div><p class="pub-title">Which Publications' Metadata Are in Which Bibliographic Databases? A System for Exploration</p><p class="pub-authors">M. Färber, C. Braun, N. Popovic, T. Saier, <strong>K. Noullet</strong></p><p class="pub-venue">BIR Workshop at ECIR 2022, pp. 39-44, CEUR-WS</p></div></li>
+              <li><span class="pub-year">2021</span><div><p class="pub-title">Combining Linking Techniques for Everyone</p><p class="pub-authors"><strong>K. Noullet</strong>, S. Printz, M. Färber</p><p class="pub-venue">The Semantic Web: ESWC 2021 Satellite Events, LNCS, pp. 88-92, Springer</p></div></li>
+              <li><span class="pub-year">2020</span><div><p class="pub-title">KG-agnostic Entity Linking Orchestration</p><p class="pub-authors"><strong>K. Noullet</strong></p><p class="pub-venue">Doctoral Consortium at ISWC 2020, pp. 41-48, CEUR-WS</p></div></li>
+              <li><span class="pub-year">2020</span><div><p class="pub-title">KORE 50<sup>DYWC</sup>: An Evaluation Data Set for Entity Linking Based on DBpedia, YAGO, Wikidata, and Crunchbase</p><p class="pub-authors"><strong>K. Noullet</strong>, R. Mix, M. Färber</p><p class="pub-venue">Proceedings of LREC 2020, pp. 2389-2395, ELRA</p></div></li>
+            </ol>
+            <p class="more-link"><a href="https://orcid.org/0000-0002-4916-9443" target="_blank" rel="noopener" data-i18n="res.orcid">Full record on ORCID →</a></p>
+
+            <h3 class="sub-head" data-i18n="res.service.title">Academic service</h3>
+            <p data-i18n="res.service.text">Co-organiser of SEMANTiCS 2019 (Karlsruhe); reviewer for ISWC, ESWC, WWW, IJCNLP-AACL and others.</p>
+          </div>
+
+          <div class="reveal">
+            <h3 class="sub-head" data-i18n="teach.title">Teaching &amp; supervision</h3>
+            <ul class="teach-list">
+              <li class="card">
+                <p class="teach-date" data-i18n="teach.gdi1.date">Summer 2020 - Summer 2026</p>
+                <h4 data-i18n="teach.gdi1.title">Tutorial lead, "Foundations of Computer Science I"</h4>
+                <p class="teach-meta" data-i18n="teach.bsc">KIT · Bachelor's programmes in Information Systems and Industrial Engineering</p>
+                <p data-i18n="teach.gdi1.desc">600-800 students per semester; coordinated up to 25 student workers per semester; created slides and exams; gave lectures.</p>
+              </li>
+              <li class="card">
+                <p class="teach-date" data-i18n="teach.gdi2.date">Winter 2019/20 - Winter 2024/25</p>
+                <h4 data-i18n="teach.gdi2.title">Tutorial lead, "Foundations of Computer Science II"</h4>
+                <p class="teach-meta" data-i18n="teach.bsc">KIT · Bachelor's programmes in Information Systems and Industrial Engineering</p>
+                <p data-i18n="teach.gdi2.desc">600-800 students per semester; coordinated up to 25 student workers per semester; redesigned all slides from scratch; created exams; gave lectures.</p>
+              </li>
+              <li class="card">
+                <p class="teach-date" data-i18n="teach.kd.date">Winter 2022/23 - Winter 2025/26</p>
+                <h4 data-i18n="teach.kd.title">Master's lecture "Knowledge Discovery, Graph Neural Networks, and Language Models"</h4>
+                <p class="teach-meta" data-i18n="teach.kd.meta">KIT · Master's level</p>
+                <p data-i18n="teach.kd.desc">Sole instructor for approx. 30 students: LLMs, Semantic Web, machine learning; created all slides and designed the exam.</p>
+              </li>
+              <li class="card">
+                <p class="teach-date">2022 - 2026</p>
+                <h4 data-i18n="teach.sem.title">Seminar "Linked Data and the Semantic Web"</h4>
+                <p class="teach-meta">KIT</p>
+              </li>
+              <li class="card">
+                <p class="teach-date">2019 - 2026</p>
+                <h4 data-i18n="teach.sup.title">Thesis supervision</h4>
+                <p data-i18n="teach.sup.desc">7 Bachelor's and Master's theses in NLP, entity linking, LLMs and the Semantic Web.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== Education ============================== -->
+    <section class="section" id="education">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker" data-i18n="edu.kicker">Education</p>
+          <h2 data-i18n="edu.title">Education &amp; training</h2>
+        </header>
+
+        <ol class="timeline">
+          <li class="tl-item reveal">
+            <div class="tl-meta"><span class="tl-date">09/2019 - 12/2026</span><span class="tl-place">Karlsruhe</span></div>
+            <div class="tl-body card">
+              <h3 data-i18n="edu.phd.title">Doctorate (Dr.-Ing., equivalent to Ph.D.)</h3>
+              <p class="tl-org" data-i18n="edu.phd.org">Karlsruhe Institute of Technology (KIT), Institute AIFB</p>
+              <p data-i18n="edu.phd.desc">Thesis: "Modular and Adaptive Named Entity Linking", submitted 07/2026, defense on 10&nbsp;Dec&nbsp;2026.</p>
+            </div>
+          </li>
+          <li class="tl-item reveal">
+            <div class="tl-meta"><span class="tl-date">2015 - 2019</span><span class="tl-place">Freiburg</span></div>
+            <div class="tl-body card">
+              <h3 data-i18n="edu.msc.title">Master of Science in Computer Science</h3>
+              <p class="tl-org" data-i18n="edu.msc.org">University of Freiburg</p>
+              <ul class="bullets">
+                <li data-i18n="edu.msc.b1">Final grade: 1.5 (German scale, 1.0 = best)</li>
+                <li data-i18n="edu.msc.b2">Focus: machine learning, Semantic Web, entity linking</li>
+                <li data-i18n="edu.msc.b3">Master's thesis: "Agnos - Knowledge Graph-Agnostic Entity Linking"</li>
+              </ul>
+            </div>
+          </li>
+          <li class="tl-item reveal">
+            <div class="tl-meta"><span class="tl-date">2011 - 2014</span><span class="tl-place" data-i18n="place.lux">Luxembourg</span></div>
+            <div class="tl-body card">
+              <h3 data-i18n="edu.bsc.title">Professional Bachelor in Computer Science</h3>
+              <p class="tl-org" data-i18n="edu.bsc.org">University of Luxembourg</p>
+              <ul class="bullets">
+                <li data-i18n="edu.bsc.b1">Bachelor's thesis: "Paprika - Smart Request Management &amp; Development" (16.5/20)</li>
+                <li data-i18n="edu.bsc.b2">Erasmus semester at Linköping University (Sweden)</li>
+                <li data-i18n="edu.bsc.b3">Scholarship for the Asian Studies summer school at Sophia University, Tokyo (2013)</li>
+              </ul>
+            </div>
+          </li>
+          <li class="tl-item reveal">
+            <div class="tl-meta"><span class="tl-date">2022 - 2026</span><span class="tl-place" data-i18n="edu.sc.kind">Professional development</span></div>
+            <div class="tl-body card">
+              <h3 data-i18n="edu.sc.title">Software Campus: leadership programme for future IT executives</h3>
+              <p class="tl-org" data-i18n="edu.sc.org">Funded by the German Federal Ministry of Research, with industry partners such as DATEV and Holtzbrinck</p>
+              <p data-i18n="edu.sc.desc">Trainings: new as a leader; persuading under resistance; recognising and using communication potential; design thinking; change management; diversity &amp; inclusion (leading diverse teams successfully).</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================== Skills ============================== -->
+    <section class="section section-alt" id="skills">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker" data-i18n="skills.kicker">Toolbox</p>
+          <h2 data-i18n="skills.title">Skills</h2>
+        </header>
+
+        <div class="skills-grid">
+          <div class="card skill-card reveal">
+            <h3 data-i18n="skills.ai">AI, ML &amp; NLP</h3>
+            <ul class="chips"><li>Large Language Models</li><li>Ollama</li><li>LangChain</li><li>LlamaIndex</li><li>PyTorch</li><li>Hugging Face Transformers</li><li>spaCy</li><li data-i18n="skill.ner">Named entity recognition</li><li data-i18n="skill.el">Entity linking</li></ul>
+          </div>
+          <div class="card skill-card reveal">
+            <h3>Semantic Web</h3>
+            <ul class="chips"><li data-i18n="skill.kg">Knowledge graphs</li><li>RDF</li><li>OWL</li><li>SPARQL</li><li>Wikidata</li><li>DBpedia</li><li>Semantic MediaWiki</li></ul>
+          </div>
+          <div class="card skill-card reveal">
+            <h3 data-i18n="skills.prog">Programming</h3>
+            <ul class="chips"><li class="chip-strong">Python</li><li class="chip-strong">Java</li><li>SQL</li><li>JavaScript</li><li>C/C++</li></ul>
+            <p class="chip-legend"><span class="chip-strong-dot" aria-hidden="true"></span><span data-i18n="skills.advanced">advanced</span></p>
+          </div>
+          <div class="card skill-card reveal">
+            <h3>Software &amp; DevOps</h3>
+            <ul class="chips"><li>Spring</li><li>React</li><li>Angular</li><li>REST APIs</li><li>Docker</li><li>Git</li><li>Linux</li><li data-i18n="skill.sysadmin">System administration (Windows, Active Directory, networking)</li></ul>
+          </div>
+          <div class="card skill-card reveal">
+            <h3 data-i18n="skills.mgmt">Management</h3>
+            <ul class="chips"><li data-i18n="skill.pm">Project management</li><li data-i18n="skill.grants">Grant proposals</li><li data-i18n="skill.partners">Partner management</li><li data-i18n="skill.team">Team leadership</li><li data-i18n="skill.workshops">Workshops</li><li>Design Thinking</li><li>Change Management</li><li data-i18n="skill.gov">AI governance (EU AI Act)</li></ul>
+          </div>
+          <div class="card skill-card reveal">
+            <h3 data-i18n="skills.langs">Languages</h3>
+            <ul class="lang-list">
+              <li><span data-i18n="lang.en">English</span><span class="lang-level">C2</span></li>
+              <li><span data-i18n="lang.de">German</span><span class="lang-level">C2</span></li>
+              <li><span data-i18n="lang.fr">French</span><span class="lang-level" data-i18n="level.native">native</span></li>
+              <li><span data-i18n="lang.lu">Luxembourgish</span><span class="lang-level" data-i18n="level.native">native</span></li>
+              <li><span data-i18n="lang.fi">Finnish</span><span class="lang-level" data-i18n="level.native">native</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== Beyond work ============================== -->
+    <section class="section" id="personal">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker" data-i18n="pers.kicker">Beyond work</p>
+          <h2 data-i18n="pers.title">Outside the office</h2>
+          <p class="section-lead" data-i18n="pers.lead">Where I come from, where I volunteer and what I do when I'm not training models or teaching.</p>
+        </header>
+
+        <div class="personal-grid">
+          <article class="card personal-card reveal">
+            <div class="personal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5S14.6 18.7 12 21.5M12 2.5C9.4 5.3 8.1 8.5 8.1 12s1.3 6.7 3.9 9.5"/></svg></div>
+            <h3 data-i18n="pers.roots.title">Roots &amp; languages</h3>
+            <p data-i18n="pers.roots.text">Luxembourgish and Finnish, and at home in five languages. I studied in Luxembourg, Sweden and Germany and spent a scholarship summer at Sophia University in Tokyo. Switching between cultures and languages comes naturally to me, which helps when bringing very different teams together.</p>
+          </article>
+
+          <article class="card personal-card reveal">
+            <div class="personal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9.5" r="2.5"/><path d="M2.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5M15 14.2c.6-.2 1.3-.3 2-.3 2.5 0 4.5 2 4.5 4.6"/></svg></div>
+            <h3 data-i18n="pers.community.title">Community &amp; volunteering</h3>
+            <ul class="bullets">
+              <li data-i18n="pers.esn"><strong>Erasmus Student Network</strong>, Luxembourg (2013-2019) and Karlsruhe (2019-2024): organising events; National Representative for Luxembourg at EU level, incl. in Brussels.</li>
+              <li data-i18n="pers.council"><strong>Doctoral Researchers' Council</strong> of the KIT Department of Economics and Management (2020-2026), board member 2023-2025.</li>
+              <li data-i18n="pers.queer"><strong>QueerKAstle</strong>: supporting events (2024-2026).</li>
+              <li data-i18n="pers.fablab"><strong>FabLab Karlsruhe</strong> makerspace: volunteer since 2025.</li>
+            </ul>
+          </article>
+
+          <article class="card personal-card reveal">
+            <div class="personal-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3.5 17.3a1.8 1.8 0 0 0 2.6 2.6l5.8-5.8a4 4 0 0 0 5.2-5.4l-2.5 2.5-2.3-.4-.4-2.3 2.8-2.2z"/></svg></div>
+            <h3 data-i18n="pers.interests.title">Maker at heart</h3>
+            <p data-i18n="pers.interests.text">I enjoy working with my hands: sewing, electronics, woodworking, and cooking and baking traditional food from different countries, from Finnish Janssonin kiusaus, pulla, korvapuusti and karjalanpiirakka to French gratins. To balance out screen time, I also play tennis and go to the gym.</p>
+            <p data-i18n="pers.trustworthy">Alongside my personal projects, I'm building a proof of concept for a startup idea focused on trustworthy AI.</p>
+            <ul class="chips"><li data-i18n="int.home">Home automation</li><li data-i18n="int.making">Making &amp; crafting</li><li data-i18n="int.tennis">Tennis</li><li data-i18n="int.gym">Gym</li><li data-i18n="int.optimise">Optimising everyday processes</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== Contact ============================== -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <div class="contact-card reveal">
+          <p class="kicker" data-i18n="contact.kicker">Contact</p>
+          <h2 data-i18n="contact.title">Let's talk</h2>
+          <p data-i18n="contact.text">I'm open to roles in AI and NLP engineering, applied research and AI project leadership. The best way to reach me is a message on LinkedIn. I'm happy to share my full CV on request.</p>
+          <div class="contact-actions">
+            <a class="btn btn-primary btn-lg" href="https://www.linkedin.com/in/kristian-noullet" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.63-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+              <span data-i18n="contact.linkedin">Message me on LinkedIn</span>
+            </a>
+            <a class="btn btn-ghost btn-lg" href="https://github.com/kmdn" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+              GitHub
+            </a>
+            <a class="btn btn-ghost btn-lg" href="https://orcid.org/0000-0002-4916-9443" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zM8.1 17.6H6.4V7.4h1.7v10.2zM7.25 6.1a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2zM10.2 7.4h4.1c3.9 0 5.6 2.8 5.6 5.1 0 2.5-2 5.1-5.6 5.1h-4.1V7.4zm1.7 1.5v7.2h2.3c3.2 0 3.9-2.4 3.9-3.6 0-2-1.3-3.6-4-3.6h-2.2z"/></svg>
+              ORCID
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Kristian Noullet · <a href="#top" data-i18n="footer.top">Back to top ↑</a></p>
+      <p class="footer-privacy" data-i18n="footer.privacy">Privacy: this site sets no cookies, uses no tracking and loads no third-party resources. Your language and theme choices are stored only in your own browser. The hosting provider may process technical access logs (e.g. IP addresses).</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

@@ -167,7 +167,7 @@
   (function () {
     var visual = document.querySelector('.hero-visual');
     var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!visual || reduce || !window.requestAnimationFrame || !window.DOMMatrixReadOnly) return;
+    if (!visual || !window.requestAnimationFrame || !window.DOMMatrixReadOnly) return;
     var rings = [1, 2, 3].map(function (n) { return visual.querySelector('.orbit-' + n); });
     var nodes = Array.prototype.slice.call(visual.querySelectorAll('.node'));
     var onScreen = true, last = 0;
@@ -181,19 +181,31 @@
       });
     }
 
-    function tick(now) {
-      if (onScreen && now - last > 80 && rings[0].offsetWidth > 0) {
-        last = now;
-        var dots = dotPositions();
-        nodes.forEach(function (node) {
-          var b = node.getBoundingClientRect(), hit = 0;
-          dots.forEach(function (d) {
-            if (d.x > b.left - 2 && d.x < b.right + 2 && d.y > b.top - 2 && d.y < b.bottom + 2) hit = d.ring;
-          });
-          node.classList.toggle('lit', hit > 0);
-          node.classList.toggle('lit-blue', hit === 2);
-          node.classList.toggle('lit-orange', hit === 3);
+    function update() {
+      if (rings[0].offsetWidth === 0) return;
+      var dots = dotPositions();
+      nodes.forEach(function (node) {
+        var b = node.getBoundingClientRect(), hit = 0;
+        dots.forEach(function (d) {
+          if (d.x > b.left - 2 && d.x < b.right + 2 && d.y > b.top - 2 && d.y < b.bottom + 2) hit = d.ring;
         });
+        node.classList.toggle('lit', hit > 0);
+        node.classList.toggle('lit-blue', hit === 2);
+        node.classList.toggle('lit-orange', hit === 3);
+      });
+    }
+
+    // Reduced motion: the dots stay at their start positions, so one check (plus on resize) suffices.
+    if (reduce) {
+      update();
+      window.addEventListener('resize', update);
+      return;
+    }
+
+    function tick(now) {
+      if (onScreen && now - last > 80) {
+        last = now;
+        update();
       }
       requestAnimationFrame(tick);
     }

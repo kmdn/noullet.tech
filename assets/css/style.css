@@ -126,7 +126,7 @@ strong { font-weight: 650; }
   border: 0; background: transparent; color: var(--muted);
   padding: 4px 7px; border-radius: 7px; cursor: pointer;
 }
-.lang-flag { display: block; width: 18px; height: 12px; flex: 0 0 auto; border-radius: 1px; box-shadow: 0 0 0 1px rgb(0 0 0 / 12%); }
+.lang-flag { display: block; width: 18px; height: auto; flex: 0 0 auto; border-radius: 1px; box-shadow: 0 0 0 1px rgb(0 0 0 / 12%); }
 .lang-switch button:hover { color: var(--text); }
 .lang-switch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
 
@@ -220,7 +220,9 @@ strong { font-weight: 650; }
 }
 .avatar-initials { color: #fff; font-size: clamp(2.6rem, 5.2vw, 4.4rem); font-weight: 800; letter-spacing: -.02em; }
 .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-/* Rotating rings, each carrying a small glowing dot */
+/* Rotating rings, each carrying a small glowing dot. --start (degrees clockwise from the top) sets
+   where each dot is on load: green two-thirds through Entity linking, blue just beside Semantic Web
+   and orange just before it, so the dots are visibly moving into and out of labels. */
 .hero-visual { --t1: 45s; --t2: 70s; --t3: 95s; }
 .orbit {
   position: absolute; border: 1px dashed color-mix(in srgb, var(--muted) 40%, transparent); border-radius: 50%;
@@ -230,10 +232,10 @@ strong { font-weight: 650; }
   content: ""; position: absolute; top: -4px; left: calc(50% - 4px); width: 8px; height: 8px; border-radius: 50%;
   background: var(--accent-2); box-shadow: 0 0 10px 2px color-mix(in srgb, var(--accent-2) 60%, transparent);
 }
-.orbit-1 { width: 62%; height: 62%; animation-duration: var(--t1); }
-.orbit-2 { width: 75%; height: 75%; animation-duration: var(--t2); animation-direction: reverse; }
+.orbit-1 { --start: 195; width: 62%; height: 62%; animation-duration: var(--t1); animation-delay: calc(var(--t1) * var(--start) / -360); }
+.orbit-2 { --start: 355; width: 75%; height: 75%; animation-duration: var(--t2); animation-direction: reverse; animation-delay: calc(var(--t2) * (360 - var(--start)) / -360); }
 .orbit-2::after { background: var(--accent); box-shadow: 0 0 10px 2px color-mix(in srgb, var(--accent) 60%, transparent); }
-.orbit-3 { width: 88%; height: 88%; animation-duration: var(--t3); }
+.orbit-3 { --start: 338; width: 88%; height: 88%; animation-duration: var(--t3); animation-delay: calc(var(--t3) * var(--start) / -360); }
 .orbit-3::after { background: var(--accent-3); box-shadow: 0 0 10px 2px color-mix(in srgb, var(--accent-3) 60%, transparent); }
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -300,6 +302,7 @@ strong { font-weight: 650; }
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .stats span { font-size: .85rem; color: var(--muted); line-height: 1.35; }
+.stats strong small { font-size: .5em; font-weight: 550; letter-spacing: normal; }
 
 /* ------------------------------ Sections ------------------------------ */
 .section { padding: 96px 0; }
@@ -326,6 +329,8 @@ strong { font-weight: 650; }
 .glance dl { margin: 0; display: grid; gap: 14px; }
 .glance dt { font-size: .75rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .glance dd { margin: 2px 0 0; font-weight: 550; }
+.glance-languages { display: flex; flex-wrap: wrap; gap: 6px 14px; list-style: none; }
+.glance-languages li { display: inline-flex; align-items: center; gap: 6px; }
 
 /* Timeline */
 .timeline { list-style: none; position: relative; display: grid; gap: 22px; }
@@ -463,6 +468,7 @@ strong { font-weight: 650; }
   html { scroll-behavior: auto; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
   .orbit, .node, .pulse::after { animation: none; }
+  .orbit { transform: rotate(calc(var(--start) * 1deg)); }
   .btn, .project { transition: none; }
 }
 
@@ -505,7 +511,7 @@ strong { font-weight: 650; }
   .container { padding: 0 18px; }
   .brand-name { display: none; }
   .lang-switch button { width: 25px; height: 25px; justify-content: center; padding: 4px; font-size: 0; }
-  .lang-switch .lang-flag { width: 16px; height: 11px; }
+  .lang-switch .lang-flag { width: 16px; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .skills-grid, .personal-grid { grid-template-columns: 1fr; }
   .card { padding: 22px 20px; }

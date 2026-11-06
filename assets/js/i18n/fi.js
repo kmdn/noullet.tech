@@ -21,7 +21,7 @@ window.I18N.fi = {
 
   "hero.status": "Avoin uusille tehtäville tammikuusta 2027",
   "hero.role": "Tekoälytutkija &amp; projektipäällikkö",
-  "hero.motto": "Teknologiaintoilija. Tekoälyrealisti.",
+  "hero.motto": "Tech Enthusiast. AI Realist.",
   "hero.focus": "NLP · Suuret kielimallit · Semanttinen web · Tekoälyprojektien johtaminen",
   "hero.intro": "Rakennan tekoälyjärjestelmiä, jotka muuttavat jäsentymättömän tekstin toisiinsa kytkeytyväksi tiedoksi, ja johdan projekteja, jotka vievät ne käytäntöön oikeissa organisaatioissa. Väitöskirja KIT:ssä (väitöstilaisuus 10.&nbsp;joulukuuta&nbsp;2026), seitsemän vuotta soveltavia tekoälyprojekteja mm. BMW:n, DATEVin, Holtzbrinckin ja Nokian kanssa.",
   "hero.cta.contact": "Ota yhteyttä",

@@ -21,7 +21,7 @@ window.I18N.fr = {
 
   "hero.status": "Ouvert à de nouveaux postes dès janvier 2027",
   "hero.role": "Chercheur en IA &amp; chef de projet",
-  "hero.motto": "Passionné de tech. Réaliste sur l'IA.",
+  "hero.motto": "Tech Enthusiast. AI Realist.",
   "hero.focus": "NLP · Grands modèles de langage · Web sémantique · Direction de projets IA",
   "hero.intro": "Je conçois des systèmes d'IA qui transforment du texte non structuré en connaissances reliées, et je pilote les projets qui les font entrer dans de vraies organisations. Doctorat au KIT (soutenance le 10&nbsp;décembre&nbsp;2026), sept ans de projets d'IA appliquée avec des partenaires tels que BMW, DATEV, Holtzbrinck et Nokia.",
   "hero.cta.contact": "Me contacter",

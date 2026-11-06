@@ -114,24 +114,26 @@ strong { font-weight: 650; }
 .site-nav a:hover { color: var(--text); background: var(--accent-soft); text-decoration: none; }
 .site-nav a.active { color: var(--accent); }
 
-.header-tools { display: flex; align-items: center; gap: 8px; }
+.header-tools { display: flex; flex: 0 0 auto; align-items: center; gap: 8px; }
 
 .lang-switch {
-  display: flex; padding: 3px; gap: 2px;
+  display: flex; flex: 0 0 auto; padding: 3px; gap: 2px;
   background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
 }
+/* Margin instead of flex gap: Firefox leaves gap out of a button's width, so its text overlaps */
 .lang-switch button {
-  display: inline-flex; align-items: center; gap: 4px;
+  display: inline-flex; flex: 0 0 auto; align-items: center; white-space: nowrap;
   font: inherit; font-size: .75rem; font-weight: 650; letter-spacing: .04em;
   border: 0; background: transparent; color: var(--muted);
   padding: 4px 7px; border-radius: 7px; cursor: pointer;
 }
 .lang-flag { display: block; width: 18px; height: auto; flex: 0 0 auto; border-radius: 1px; box-shadow: 0 0 0 1px rgb(0 0 0 / 12%); }
+.lang-switch .lang-flag { margin-right: 4px; }
 .lang-switch button:hover { color: var(--text); }
 .lang-switch button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
 
 .icon-btn {
-  display: grid; place-items: center; width: 38px; height: 38px;
+  display: grid; place-items: center; flex: 0 0 auto; width: 38px; height: 38px;
   border: 1px solid var(--border); border-radius: 10px;
   background: var(--surface); color: var(--text); cursor: pointer;
 }
@@ -511,7 +513,7 @@ strong { font-weight: 650; }
   .container { padding: 0 18px; }
   .brand-name { display: none; }
   .lang-switch button { width: 25px; height: 25px; justify-content: center; padding: 4px; font-size: 0; }
-  .lang-switch .lang-flag { width: 16px; }
+  .lang-switch .lang-flag { width: 16px; margin-right: 0; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .skills-grid, .personal-grid { grid-template-columns: 1fr; }
   .card { padding: 22px 20px; }

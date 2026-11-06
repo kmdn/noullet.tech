@@ -21,7 +21,7 @@ window.I18N.de = {
 
   "hero.status": "Offen für neue Positionen ab Januar 2027",
   "hero.role": "KI-Forscher &amp; Projektleiter",
-  "hero.motto": "Technik-Enthusiast. KI-Realist.",
+  "hero.motto": "Tech-Enthusiast. KI-Realist.",
   "hero.focus": "NLP · Large Language Models · Semantic Web · KI-Projektleitung",
   "hero.intro": "Ich entwickle KI-Systeme, die aus unstrukturiertem Text vernetztes Wissen entstehen lassen, und leite die Projekte, die sie in echte Organisationen bringen. Promotion am KIT (Disputation am 10.&nbsp;Dezember&nbsp;2026), sieben Jahre angewandte KI-Projekte mit Partnern wie BMW, DATEV, Holtzbrinck und Nokia.",
   "hero.cta.contact": "Kontakt aufnehmen",

@@ -48,6 +48,10 @@
   <meta property="og:title" content="Kristian Noullet | AI Researcher &amp; Project Lead">
   <meta property="og:description" content="NLP · Large Language Models · Semantic Web · AI project leadership. Doctorate at KIT, seven years of applied AI projects with BMW, DATEV, Holtzbrinck and Nokia.">
   <meta property="og:url" content="https://noullet.tech/">
+  <meta property="og:image" content="https://noullet.tech/assets/img/kristian-noullet.jpg">
+  <meta property="og:image:width" content="800">
+  <meta property="og:image:height" content="800">
+  <meta property="og:image:alt" content="Portrait of Kristian Noullet">
   <meta property="profile:first_name" content="Kristian">
   <meta property="profile:last_name" content="Noullet">
   <meta name="twitter:card" content="summary">
@@ -61,6 +65,7 @@
     "@type": "Person",
     "name": "Kristian Noullet",
     "url": "https://noullet.tech/",
+    "image": "https://noullet.tech/assets/img/kristian-noullet.jpg",
     "jobTitle": "AI Researcher & Project Lead",
     "description": "Computer scientist and AI researcher specialising in NLP, large language models, knowledge graphs and the Semantic Web.",
     "knowsAbout": ["Natural Language Processing", "Large Language Models", "Entity Linking", "Knowledge Graphs", "Semantic Web", "Machine Learning", "AI Project Management"],
@@ -145,10 +150,9 @@
         </div>
         <div class="hero-visual" aria-hidden="true">
           <div class="avatar">
+            <!-- Initials stay underneath as a fallback if the photo can't load -->
             <span class="avatar-initials">KN</span>
-            <!-- To show a photo instead of the initials: add assets/img/photo.jpg (square, ~600x600) and uncomment:
-            <img src="assets/img/photo.jpg" alt="" width="600" height="600">
-            -->
+            <img src="assets/img/kristian-noullet.jpg" alt="Kristian Noullet" width="800" height="800" fetchpriority="high" decoding="async">
           </div>
           <!-- Rings rotate (each carries a dot); labels sit still on their rings so they stay readable,
                and glow while any ring's dot passes under them (detected in main.js).
